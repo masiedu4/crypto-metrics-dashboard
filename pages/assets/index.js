@@ -23,6 +23,7 @@ const styles = {
 };
 
 export default function Home({ allAssets, pageAssets }) {
+  console.log(allAssets);
   // this is an implemented search logic
   const [assetData, setAssetData] = useState("");
 

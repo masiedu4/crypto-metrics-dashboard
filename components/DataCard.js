@@ -14,9 +14,10 @@
 import Image from "next/image";
 import { FcAreaChart, FcBarChart, FcDoughnutChart } from "react-icons/fc";
 import millify from "millify";
+import Link from "next/link";
 
 const styles = {
-  wrapper: `m-6 max-w-xl bg-white rounded-lg shadow-xl`,
+  wrapper: `m-6 max-w-xl bg-white rounded-lg shadow-xl cursor-pointer`,
   wrapper2: `flex items-center justify-center p-5 space-x-5`,
   NamePriceWrapper: `flex flex-col space-y-2`,
   currencyName: `text-lg font-black text-gray-500`,
@@ -31,6 +32,7 @@ const styles = {
 };
 const DataCard = ({ assets }) => {
   const {
+    id,
     name,
     current_price,
     image,
@@ -40,55 +42,57 @@ const DataCard = ({ assets }) => {
     market_cap_rank,
   } = assets;
   return (
-    <div className={styles.wrapper}>
-      <div className={styles.wrapper2}>
-        <Image src={image} alt={name} width={50} height={50} />
-        <div className={styles.NamePriceWrapper}>
-          <h2 className={styles.currencyName}>
-            {market_cap_rank}. {name}
-          </h2>
-          <p className={styles.currencyPrice}>
-            ${current_price.toLocaleString()}
-          </p>
-        </div>
-        <div className={styles.dataWrapper}>
-          <div className={styles.dataCategoryWrapper}>
-            <FcDoughnutChart className={styles.dataCategoryIcon} />
-            <p className={styles.dataCategoryText}>Total Supply</p>
-            <span className={styles.dataCategoryValue}>
-              ${millify(max_supply)}
-            </span>
+    <Link href="/assets/${id}">
+      <div className={styles.wrapper}>
+        <div className={styles.wrapper2}>
+          <Image src={image} alt={name} width={50} height={50} />
+          <div className={styles.NamePriceWrapper}>
+            <h2 className={styles.currencyName}>
+              {market_cap_rank}. {name}
+            </h2>
+            <p className={styles.currencyPrice}>
+              ${current_price.toLocaleString()}
+            </p>
           </div>
-          <div className={styles.dataCategoryWrapper}>
-            <FcAreaChart className={styles.dataCategoryIcon} />
-            <p className={styles.dataCategoryText}>Market Cap</p>
-            <span className={styles.dataCategoryValue}>
-              ${millify(market_cap)}
-            </span>
-          </div>
-          <div className={styles.dataCategoryWrapper}>
-            <FcBarChart className={styles.dataCategoryIcon} />
-            <p className={styles.dataCategoryText}>24h Change</p>
-            {/* green when price > 0, red when price < 0 */}
-            {price_change_percentage_24h < 0 ? (
-              <span className={styles.redHrChangeValue}>
-                {millify(price_change_percentage_24h, {
-                  precision: 2,
-                })}{" "}
-                %
+          <div className={styles.dataWrapper}>
+            <div className={styles.dataCategoryWrapper}>
+              <FcDoughnutChart className={styles.dataCategoryIcon} />
+              <p className={styles.dataCategoryText}>Total Supply</p>
+              <span className={styles.dataCategoryValue}>
+                ${millify(max_supply)}
               </span>
-            ) : (
-              <span className={styles.greenHrChange}>
-                {millify(price_change_percentage_24h, {
-                  precision: 2,
-                })}{" "}
-                %
+            </div>
+            <div className={styles.dataCategoryWrapper}>
+              <FcAreaChart className={styles.dataCategoryIcon} />
+              <p className={styles.dataCategoryText}>Market Cap</p>
+              <span className={styles.dataCategoryValue}>
+                ${millify(market_cap)}
               </span>
-            )}
+            </div>
+            <div className={styles.dataCategoryWrapper}>
+              <FcBarChart className={styles.dataCategoryIcon} />
+              <p className={styles.dataCategoryText}>24h Change</p>
+              {/* green when price > 0, red when price < 0 */}
+              {price_change_percentage_24h < 0 ? (
+                <span className={styles.redHrChangeValue}>
+                  {millify(price_change_percentage_24h, {
+                    precision: 2,
+                  })}{" "}
+                  %
+                </span>
+              ) : (
+                <span className={styles.greenHrChange}>
+                  {millify(price_change_percentage_24h, {
+                    precision: 2,
+                  })}{" "}
+                  %
+                </span>
+              )}
+            </div>
           </div>
         </div>
       </div>
-    </div>
+    </Link>
   );
 };
 
