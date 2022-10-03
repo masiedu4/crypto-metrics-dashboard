@@ -4,11 +4,10 @@ CryptoNite is a real-time and up-to-date metrics dashboard that displays accurat
 
 ## Status:
 
-- 70% completed.
+- 80% completed.
 
 ## ToDo
 
-- Dynamic Routing with getStaticPaths for each asset.
 - Use Chart.js to provide detailed charts for each asset
 
 ## Tools Used
